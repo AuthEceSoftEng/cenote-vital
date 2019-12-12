@@ -17,15 +17,16 @@ This is the logistics repository to hold issues, documentation, installation ins
 
 Since cenote is a distributed system it spans across 5 repositories:
 
-- [cenote](https://github.com/AuthEceSoftEng/cenote): This one, used for gathering all the issues related to cenote, hosting IaC files and containing installation instructions.
-- [cenote-api](https://github.com/AuthEceSoftEng/cenote-api): API server & web management client, used also for data reading.
-- [cenote-cockroach](https://github.com/AuthEceSoftEng/cenote-cockroach): Read/Write related code for CockroachDB.
-- [cenote-write](https://github.com/AuthEceSoftEng/cenote-write): Apache Storm topology used for data writing.
-- [cenote-read](https://github.com/AuthEceSoftEng/cenote-read): Apache Storm Topology used for querying data. (Obsolete, due to latencies in DRPC server, switched the reading to cenote-api).
+- [cenote-vital](https://github.com/AuthEceSoftEng/cenote-vital): This one, used for gathering all the issues related to cenote, hosting IaC files and containing installation instructions.
+- [cenote-vital-api](https://github.com/AuthEceSoftEng/cenote-vital-api): API server & web management client, used also for data reading.
+- [cenote-vital-write](https://github.com/AuthEceSoftEng/cenote-write): Apache Storm topology used for data writing.
+
+The underlying infrastructure (fork from this repo) is shown in [cenote](https://github.com/AuthEceSoftEng/cenote).
+
 
 # Installation
 
-> Our demo server can be found [here](https://cenote.sidero.services/) along with the online [API docs](https://cenote.sidero.services/docs).
+> Our demo server can be found [here](https://cenote.sidero.services/) along with the online [API docs](http://cenote-vital.sidero.services:4000/docs).
 
 ## Prerequisites
 
@@ -45,16 +46,16 @@ Before you can install cenote, you need to have already set up:
 Every service should be deployed under the namespace cenote.
 redis, cockroach, mongodb can be installed using the tiller-helm.
 After that, the following services should be installed: zookeeper, storm, kafka, node.
-Those services can be installed using its [yaml files](https://github.com/AuthEceSoftEng/cenote/tree/master/iac).
+Those services can be installed using its [yaml files](https://github.com/AuthEceSoftEng/cenote-vital/tree/master/iac).
 
 Login at your kubernetes cluster and execute the following commands:
 ```
-kubectl create -f https://github.com/AuthEceSoftEng/cenote/tree/master/iac/zookeeperAlone.yaml
-kubectl create -f https://github.com/AuthEceSoftEng/cenote/tree/master/iac/kafkaAll.yaml
-kubectl create -f https://github.com/AuthEceSoftEng/cenote/tree/master/iac/nodejs.yaml
-kubectl create -f https://github.com/AuthEceSoftEng/cenote/tree/master/iac/storm.yaml
-kubectl create -f https://github.com/AuthEceSoftEng/cenote/tree/master/iac/storm2.yaml
-kubectl create -f https://github.com/AuthEceSoftEng/cenote/tree/master/iac/storm3.yaml
+kubectl create -f https://github.com/AuthEceSoftEng/cenote-vital/tree/master/iac/zookeeperAlone.yaml
+kubectl create -f https://github.com/AuthEceSoftEng/cenote-vital/tree/master/iac/kafkaAll.yaml
+kubectl create -f https://github.com/AuthEceSoftEng/cenote-vital/tree/master/iac/nodejs.yaml
+kubectl create -f https://github.com/AuthEceSoftEng/cenote-vital/tree/master/iac/storm.yaml
+kubectl create -f https://github.com/AuthEceSoftEng/cenote-vital/tree/master/iac/storm2.yaml
+kubectl create -f https://github.com/AuthEceSoftEng/cenote-vital/tree/master/iac/storm3.yaml
 ```
 **Attention!** Storm instances require the following IPs:
 - Storm 1: 10.43.192.184
@@ -67,9 +68,9 @@ If you want to use different IPs, you have to rebuild the docker image.
 
 - The Apache Storm Topology used by cenote to write events to the database can be found [here](https://github.com/AuthEceSoftEng/cenote-write). You just need to clone the source code, configure a `.env` file and compile it to a jar that you will then submit to the Storm cluster. Instructions on how to do this can be found in the repo's README file.
 
-  > Note: [cenote-write](https://github.com/AuthEceSoftEng/cenote-write) uses [cenote-cockroach](https://github.com/AuthEceSoftEng/cenote-cockroach) internally so check [cenote-cockroach@README](https://github.com/AuthEceSoftEng/cenote-cockroach/blob/master/README.md) for its required environment variables.
+  > Note: [cenote-vital-write](https://github.com/AuthEceSoftEng/cenote-vital-write) uses [cenote-cockroach](https://github.com/AuthEceSoftEng/cenote-cockroach) internally so check [cenote-cockroach@README](https://github.com/AuthEceSoftEng/cenote-cockroach/blob/master/README.md) for its required environment variables.
 
-- The API server & UI used by cenote can be found [here](https://github.com/AuthEceSoftEng/cenote-api). You just need to clone the source code, configure a `.env` file and start it. Instructions on how to do this can be found in the repo's README file.
+- The API server & UI used by cenote can be found [here](https://github.com/AuthEceSoftEng/cenote-vital-api). You just need to clone the source code, configure a `.env` file and start it. Instructions on how to do this can be found in the repo's README file.
 
 # Tests
 
