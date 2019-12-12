@@ -1,4 +1,4 @@
-![cenote](./Cenote_colour_Horizontal.png)
+![cenote](./Cenote_colour_Horizontal.png?)
 
 [![Travis](https://img.shields.io/travis/com/AuthEceSoftEng/cenote.svg?style=flat-square&logo=travis&label=)](https://travis-ci.com/AuthEceSoftEng/cenote) [![license](https://img.shields.io/github/license/AuthEceSoftEng/cenote.svg?style=flat-square)](./LICENSE)
 
